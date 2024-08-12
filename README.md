@@ -23,3 +23,47 @@ If above does not work, then use `aws configure` command.
 > S3 CLI
 > aws s3 ls
 > aws s3 rb s3://my-example-bucket
+> aws s3api create-bucket --bucket my-bucket-name --region us-east-1
+> aws s3api list-buckets
+> aws s3api list-objects --bucket my-bucket-name
+> aws s3api delete-object --bucket my-bucket-name --key my-file.txt
+> aws s3api delete-bucket --bucket my-bucket-name
+> aws s3api get-bucket-acl --bucket my-bucket-name
+> aws s3api list-buckets --query "Buckets[].Name" --output text
+> aws s3api list-buckets --query "Buckets[].{Name: Name, CreationDate: CreationDate}" --output json7
+> aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output table
+> aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output yaml
+> aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output json
+
+1. List All Buckets Created in the Last 7 Days
+> aws s3api list-buckets --query "Buckets[?CreationDate > \`$(date -u -d '7 days ago' +'%Y-%m-%dT%H:%M:%SZ')\`]" --output table
+
+2. Find Buckets That Have Names Starting with a Specific Prefix
+> aws s3api list-buckets --query "Buckets[?starts_with(Name, 'prod-')]" --output table
+
+3. Identify Buckets That Do Not Have Versioning Enabled
+```bash
+for bucket in $(aws s3api list-buckets --query "Buckets[].Name" --output text); do
+  status=$(aws s3api get-bucket-versioning --bucket $bucket --query "Status" --output text)
+  if [ "$status" != "Enabled" ]; then
+    echo $bucket
+  fi
+done
+```
+
+4. List Buckets and Display Their Creation Dates Only
+> aws s3api list-buckets --query "Buckets[].{Name: Name, CreationDate: CreationDate}" --output table
+
+5. List Buckets and Sort Them by Creation Date
+> aws s3api list-buckets --query "Buckets | sort_by(@, &CreationDate)[]" --output table
+
+7. List Buckets in a Specific Region
+```bash
+for bucket in $(aws s3api list-buckets --query "Buckets[].Name" --output text); do
+  region=$(aws s3api get-bucket-location --bucket $bucket --query "LocationConstraint" --output text)
+  if [ "$region" == "us-east-1" ] || [ "$region" == "None" ]; then
+    echo $bucket
+  fi
+done
+```
+
