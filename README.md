@@ -36,7 +36,18 @@ If above does not work, then use `aws configure` command.
 > aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output json
 
 1. List All Buckets Created in the Last 7 Days
-> aws s3api list-buckets --query "Buckets[?CreationDate > \`$(date -u -d '7 days ago' +'%Y-%m-%dT%H:%M:%SZ')\`]" --output table
+
+```bash
+# Store the date 7 days ago in a variable
+seven_days_ago=$(date -u -d '7 days ago' +'%Y-%m-%dT%H:%M:%SZ')
+echo $seven_days_ago
+
+# Use the stored date in the query
+aws s3api list-buckets --query "Buckets[?CreationDate > \`'$seven_days_ago'\`]" --output table
+
+# Second way
+aws s3api list-buckets --query "Buckets[?CreationDate > '2024-08-01T00:00:00Z']" --output table
+```
 
 2. Find Buckets That Have Names Starting with a Specific Prefix
 > aws s3api list-buckets --query "Buckets[?starts_with(Name, 'prod-')]" --output table
