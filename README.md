@@ -78,3 +78,67 @@ for bucket in $(aws s3api list-buckets --query "Buckets[].Name" --output text); 
 done
 ```
 
+
+## Difference between bash and sh.
+
+### Introduction
+
+- **`sh`**: The original Unix shell, known as the Bourne Shell, developed by Stephen Bourne in 1979. It is a simple, POSIX-compliant shell used primarily for basic scripting and command execution.
+- **`bash`**: The Bourne Again Shell, developed as part of the GNU Project in 1989. It is an enhanced version of `sh` with many additional features, widely used on Linux systems.
+
+### Key Differences
+
+#### 1. Origin
+- **`sh` (Bourne Shell)**: Introduced in Version 7 Unix, 1979.
+- **`bash` (Bourne Again Shell)**: Developed as a free replacement for `sh`, released in 1989.
+
+#### 2. Features
+- **`sh`**: 
+  - Basic scripting capabilities.
+  - Lacks advanced features found in modern shells.
+  - Suitable for simple scripts and command execution.
+
+- **`bash`**: 
+  - Rich feature set, including:
+    - Command-line editing.
+    - Command history.
+    - Arrays.
+    - More complex programming constructs.
+  - Allows for more sophisticated scripting.
+
+#### 3. Portability
+- **`sh`**:
+  - Highly portable across Unix-like systems.
+  - Ideal for scripts intended to run on various platforms without modification.
+
+- **`bash`**:
+  - Widely used, especially on Linux systems.
+  - Not as universally available as `sh`, as some Unix-like systems do not include `bash` by default.
+
+#### 4. POSIX Compliance
+- **`sh`**:
+  - More POSIX-compliant.
+  - Adheres strictly to the POSIX standard, ensuring portability and consistency.
+
+- **`bash`**:
+  - Mostly backward compatible with `sh`.
+  - Can operate in a POSIX-compliant mode when invoked as `sh`, but includes many non-POSIX extensions.
+
+#### 5. Backward Compatibility
+- **`sh`** scripts can run in `bash` with minimal or no modification.
+- **`bash`** scripts may not be fully compatible with `sh` due to the use of extended features.
+
+### Summary
+
+- **Use `sh`** when you need maximum portability and adherence to the POSIX standard. Ideal for simple, universally compatible scripts.
+- **Use `bash`** when you require advanced features, more powerful scripting capabilities, and are working primarily on Linux or GNU systems.
+
+#### Example Usage
+
+#### `sh` Script Example:
+
+```sh
+#!/bin/sh
+echo "Hello, World!"
+```
+
