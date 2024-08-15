@@ -1,4 +1,4 @@
-# AWS-Solutions-Architect
+# AWS Solutions Architect Learning
 
 ### Create a user in AWS using IAM.
 
