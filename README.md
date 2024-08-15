@@ -142,3 +142,8 @@ done
 echo "Hello, World!"
 ```
 
+### Get Caller Identity 
+
+`aws sts get-caller-identity`
+`aws sts get-caller-identity --query Arn --output text`
+`aws sts get-caller-identity --output json`
