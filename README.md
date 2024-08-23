@@ -2,6 +2,72 @@
 
 => Video lecture that I am following => https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=41074s
 
+## AWS Setup on Windows
+
+This guide will help you set up AWS on Windows, create a user with the necessary permissions on AWS, configure it on your Windows machine, and verify the setup.
+
+### Prerequisites
+
+- A valid AWS account.
+- Admin access to install software on your Windows machine.
+
+### 1. Create an AWS Free Tier Account
+
+If you don't have an AWS account, create one by following these steps:
+
+1. Go to the [AWS Free Tier Sign-Up Page](https://aws.amazon.com/free).
+2. Complete the registration process.
+
+### 2. Set Up AWS CLI on Windows
+
+#### Step 1: Download and Install AWS CLI
+
+1. Download the AWS CLI installer for Windows from [this link](https://aws.amazon.com/cli/).
+2. Run the installer and follow the on-screen instructions.
+3. Verify the installation by opening the Command Prompt (`cmd`) and typing:
+    ```bash
+    aws --version
+    ```
+   You should see the version of the AWS CLI installed.
+
+#### Step 2: Configure AWS CLI
+
+After setting up the CLI, you’ll need to configure it with your AWS credentials.
+
+### 3. Create a New IAM User in AWS
+
+#### Step 1: Log into the AWS Console
+
+1. Visit the [AWS Management Console](https://aws.amazon.com/console/) and log in with your credentials.
+
+#### Step 2: Create an IAM User
+
+1. Go to the **IAM Dashboard**.
+2. Select **Users** from the sidebar and click on **Add User**.
+3. Choose a username (e.g., `my-windows-user`).
+4. Enable **Programmatic Access** to get access keys for the CLI.
+5. Click **Next** and assign permissions. You can either:
+   - Attach an existing policy such as `AdministratorAccess`, or
+   - Create a custom policy as needed.
+6. Click through the remaining steps and **Create User**.
+7. Save the **Access Key ID** and **Secret Access Key** as you will need them to configure the AWS CLI.
+
+### 4. Configure AWS on Windows
+
+Now that you have the IAM user's access keys, you can configure the AWS CLI on your Windows machine.
+
+#### Step 1: Open Command Prompt
+
+Open `cmd` on your Windows machine.
+
+#### Step 2: Run the AWS Configure Command
+
+Run the following command to configure the AWS CLI:
+
+```bash
+aws configure
+
+
 ### Create a user in AWS using IAM.
 
 ### set environment variables
