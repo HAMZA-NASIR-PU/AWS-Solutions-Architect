@@ -306,6 +306,102 @@ Choosing the right storage class can optimize your costs and performance for dif
 
 
 
+## AWS S3 CLI Practice Task
+
+This practice task is designed to help you get hands-on experience with key AWS S3 CLI commands as you prepare for your AWS certification. The tasks simulate real-world scenarios you may encounter when working with S3 in the cloud.
+
+### Task 1: Listing Buckets and Objects
+
+1. **List all S3 buckets in your account**:
+   - Use the AWS CLI to list all the buckets that currently exist in your AWS account.
+   ```bash
+   aws s3api list-buckets --query "Buckets[*].Name"
+   ```
+
+2. **List all objects in a specific bucket**:
+   - Select a bucket from the list and use the CLI to list all the objects stored in that bucket.
+   ```bash
+   aws s3api list-objects --bucket my-example-bucket-pak --query "Contents[*].Key"
+   ```
+
+### Task 2: File Manipulation and Upload to S3
+
+3. **Create a new text file**:
+   - Create a new file on your local machine named `abc.txt`.
+   ```bash
+   touch abc.txt
+   ```
+
+4. **Write to the file**:
+   - Write the text "HELLO WORLD" into the `abc.txt` file.
+   ```bash
+   echo "HELLO WORLD" > abc.txt
+   ```
+
+5. **Verify the file contents**:
+   - Display the contents of the file to ensure the text was written correctly.
+   ```bash
+   cat abc.txt
+   ```
+
+6. **Upload the file to S3**:
+   - Use the AWS CLI to upload the `abc.txt` file to an S3 bucket (`my-example-bucket-pak2`). Assign it the same key (`abc.txt`) and specify the content type.
+   ```bash
+   aws s3api put-object --bucket my-example-bucket-pak2 --key abc.txt --content-type plain/txt --body abc.txt
+   ```
+
+### Task 3: Syncing Directories with S3
+
+7. **Synchronize a local directory with S3**:
+   - Assume you have a local directory named `images/`. Synchronize the contents of this directory with an S3 bucket.
+   ```bash
+   aws s3 sync images/ s3://my-example-bucket-pak2
+   ```
+
+### Task 4: Downloading and Managing Files
+
+8. **Download an object from S3**:
+   - Download the `abc.txt` file from your S3 bucket (`my-example-bucket-pak2`) and save it locally as `abc2.txt`.
+   ```bash
+   aws s3api get-object --bucket my-example-bucket-pak2 --key abc.txt abc2.txt
+   ```
+
+9. **Verify the downloaded file**:
+   - Ensure that the file was downloaded correctly by listing the files in the directory and inspecting `abc2.txt`.
+   ```bash
+   ls -la
+   ```
+
+### Task 5: Cleanup
+
+10. **Remove local files**:
+    - After completing the tasks, clean up by removing the local `abc.txt` and `abc2.txt` files.
+    ```bash
+    rm abc.txt abc2.txt
+    ```
+
+11. **Verify cleanup**:
+    - List the contents of the directory to ensure the files were deleted.
+    ```bash
+    ls -la
+    ```
+
+### Bonus Task: Automate the Workflow
+
+- Create a shell script named `s3Practice.sh` that automates the entire workflow from file creation to file download and cleanup. This will help you practice automation, which is key to effective cloud management.
+
+### Learning Outcomes
+
+By completing this practice task, you will have demonstrated:
+- Listing and interacting with S3 buckets and objects.
+- Basic file manipulation and management on your local machine.
+- Uploading, syncing, and downloading objects from S3.
+- File cleanup and workflow automation with shell scripts.
+
+This practice task simulates real-world scenarios and gives you hands-on experience with the AWS S3 CLI commands.
+
+
+
 ### S3 Bucket
 
 > S3 API
