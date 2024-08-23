@@ -146,6 +146,85 @@ echo %MY_VAR%
 This variable will only be available for the duration of the current CMD session.
 
 
+## AWS S3 Bucket Management using AWS CLI
+
+This guide demonstrates how to manage AWS S3 buckets using the AWS CLI. It includes commands to list, create, delete, and empty S3 buckets.
+
+### Prerequisites
+
+- AWS CLI must be installed and configured on your machine.
+- You must have the necessary IAM permissions to manage S3 buckets and objects.
+
+### Commands
+
+#### 1. List all S3 Buckets
+
+To list all the S3 buckets in your AWS account, use the following command:
+
+```bash
+aws s3api list-buckets
+```
+
+This command will return the names of all S3 buckets.
+
+#### 2. Delete an S3 Bucket
+
+Before deleting a bucket, ensure that it is empty. Once the bucket is empty, you can delete it using the following command:
+
+```bash
+aws s3api delete-bucket --bucket your-bucket-name
+```
+
+Replace `your-bucket-name` with the actual name of the S3 bucket you want to delete.
+
+#### 3. List Objects in a Specific S3 Bucket
+
+To view all the objects inside a specific S3 bucket, use the following command:
+
+```bash
+aws s3api list-objects --bucket your-bucket-name --query "Contents[].{Key: Key}"
+```
+
+This command will display the keys (names) of all the objects stored in the specified S3 bucket.
+
+#### 4. Remove All Objects from an S3 Bucket
+
+If you need to delete all objects from a bucket before deleting the bucket itself, use this command:
+
+```bash
+aws s3 rm s3://your-bucket-name --recursive
+```
+
+This will delete all objects and subdirectories inside the S3 bucket.
+
+#### Example Usage
+
+1. **List all buckets:**
+   ```bash
+   aws s3api list-buckets
+   ```
+
+2. **Delete a bucket:**
+   ```bash
+   aws s3api delete-bucket --bucket my-example-bucket-dd2
+   ```
+
+3. **List objects in a bucket:**
+   ```bash
+   aws s3api list-objects --bucket my-example-bucket-dd2 --query "Contents[].{Key: Key}"
+   ```
+
+4. **Remove all objects from a bucket:**
+   ```bash
+   aws s3 rm s3://my-example-bucket-dd --recursive
+   ```
+
+### Important Notes
+
+- Before you delete an S3 bucket, you must ensure that the bucket is completely empty, or the delete operation will fail.
+- Always make sure you have the necessary IAM permissions to perform operations on S3.
+
+
 
 
 
