@@ -85,6 +85,70 @@ If above does not work, then use `aws configure` command.
 > aws sts get-caller-identity
 > aws s3 ls
 
+
+## System Environment Variables in CMD
+
+This guide covers the basic commands to view and set environment variables in the Windows Command Prompt (CMD).
+
+### Viewing System Variables
+
+#### 1. Viewing All System Variables Using `set`
+The `set` command displays all environment variables and their values currently set in the system.
+
+##### Command:
+```batch
+set
+```
+
+##### Steps:
+1. Open Command Prompt (`cmd`).
+2. Type `set` and press `Enter`.
+
+This will display a list of all environment variables and their corresponding values.
+
+#### 2. Viewing a Specific Environment Variable Using `echo`
+You can view the value of a specific environment variable using the `echo` command. To do so, wrap the environment variable name in `%` symbols.
+
+##### Command:
+```batch
+echo %VARIABLE_NAME%
+```
+
+##### Example:
+To see the value of the `PATH` environment variable:
+```batch
+echo %PATH%
+```
+
+This command will output the value stored in the `PATH` variable.
+
+### Setting Environment Variables
+
+#### 1. Temporarily Setting an Environment Variable Using `set`
+You can use the `set` command to temporarily set a new environment variable for the current CMD session.
+
+##### Command:
+```batch
+set VARIABLE_NAME=Value
+```
+
+##### Example:
+To set a variable named `MY_VAR` with the value `HelloWorld`:
+```batch
+set MY_VAR=HelloWorld
+```
+
+You can verify it using the `echo` command:
+```batch
+echo %MY_VAR%
+```
+
+This variable will only be available for the duration of the current CMD session.
+
+
+
+
+
 ### S3 Bucket
 
 > S3 API
