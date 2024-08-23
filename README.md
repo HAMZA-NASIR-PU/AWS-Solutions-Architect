@@ -1,5 +1,7 @@
 # AWS Solutions Architect Learning
 
+=> Video lecture that I am following => https://www.youtube.com/watch?v=c3Cn4xYfxJY&t=41074s
+
 ### Create a user in AWS using IAM.
 
 ### set environment variables
