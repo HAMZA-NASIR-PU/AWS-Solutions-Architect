@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+
+if [ -z "$1" ]; then
+ echo "Error: No bucket name provided"
+ exit 1
+fi
+
+BUCKET_NAME=$1
+
+# List objects and store them in an array
+OBJECT_KEYS=$(aws s3api list-objects-v2 --bucket $BUCKET_NAME --query "Contents[*].Key" --output text)
+
+# Check if there are objects in the bucket
+if [ -z "$OBJECT_KEYS" ]; then
+  echo "No objects found in bucket $BUCKET_NAME"
+  exit 0
+fi
+
+# Iterate over each object key and delete it
+for OBJECT_KEY in $OBJECT_KEYS; do
+  echo "Deleting object: $OBJECT_KEY"
+  aws s3api delete-object --bucket $BUCKET_NAME --key "$OBJECT_KEY"
+done
+
+echo "All objects deleted from bucket $BUCKET_NAME."
