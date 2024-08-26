@@ -559,20 +559,20 @@ resource "aws_instance" "example" {
 ### S3 Bucket
 
 - S3 API
-> S3 CLI
-> aws s3 ls
-> aws s3 rb s3://my-example-bucket
-> aws s3api create-bucket --bucket my-bucket-name --region us-east-1
-> aws s3api list-buckets
-> aws s3api list-objects --bucket my-bucket-name
-> aws s3api delete-object --bucket my-bucket-name --key my-file.txt
-> aws s3api delete-bucket --bucket my-bucket-name
-> aws s3api get-bucket-acl --bucket my-bucket-name
-> aws s3api list-buckets --query "Buckets[].Name" --output text
-> aws s3api list-buckets --query "Buckets[].{Name: Name, CreationDate: CreationDate}" --output json7
-> aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output table
-> aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output yaml
-> aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output json
+- S3 CLI
+- aws s3 ls
+- aws s3 rb s3://my-example-bucket
+- aws s3api create-bucket --bucket my-bucket-name --region us-east-1
+- aws s3api list-buckets
+- aws s3api list-objects --bucket my-bucket-name
+- aws s3api delete-object --bucket my-bucket-name --key my-file.txt
+- aws s3api delete-bucket --bucket my-bucket-name
+- aws s3api get-bucket-acl --bucket my-bucket-name
+- aws s3api list-buckets --query "Buckets[].Name" --output text
+- aws s3api list-buckets --query "Buckets[].{Name: Name, CreationDate: CreationDate}" --output json7
+- aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output table
+- aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output yaml
+- aws s3api list-buckets --query "Buckets[?starts_with(Name, 'my-')]" --output json
 
 1. List All Buckets Created in the Last 7 Days
 
@@ -602,10 +602,10 @@ done
 ```
 
 4. List Buckets and Display Their Creation Dates Only
-> aws s3api list-buckets --query "Buckets[].{Name: Name, CreationDate: CreationDate}" --output table
+- aws s3api list-buckets --query "Buckets[].{Name: Name, CreationDate: CreationDate}" --output table
 
 5. List Buckets and Sort Them by Creation Date
-> aws s3api list-buckets --query "Buckets | sort_by(@, &CreationDate)[]" --output table
+- aws s3api list-buckets --query "Buckets | sort_by(@, &CreationDate)[]" --output table
 
 7. List Buckets in a Specific Region
 ```bash
