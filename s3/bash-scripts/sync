@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Exit immediately if any command returns a non-zero status.
+set -e
+
+if [ -z "$1" ]; then
+ echo "Error: No bucket name provided"
+ exit 1
+fi
+
+BUCKET_NAME=$1
+
+# Directory where the files will be created
+OUTPUT_DIR="/tmp/s3-bash-scripts"
+
+# If the directory exists, delete its contents
+if [ -d "$OUTPUT_DIR" ]; then
+  rm -rf "$OUTPUT_DIR"/*
+fi
+
+# Create the directory if it does not exist
+mkdir -p "$OUTPUT_DIR"
+
+FILENAME_PREFIX=$2
+
+if [ -z "$2" ]; then
+ echo "Error: No Filename prefix provided"
+ exit 1
+fi
+
+# Delete existing objects in the 'files/' folder of the S3 bucket
+aws s3 rm s3://$BUCKET_NAME/files/ --recursive
+
+# Create 10 random files
+for i in {1..10}; do
+  # Generate a random filename
+  FILE_NAME="$OUTPUT_DIR/${FILENAME_PREFIX}_${i}.txt"
+  
+  # Generate random content
+  RANDOM_CONTENT=$(base64 /dev/urandom | head -c 100)  # Creates 100 random characters
+  
+  # Write random content to the file
+  echo "$RANDOM_CONTENT" > "$FILE_NAME"
+  
+  # Print message
+  echo "Created file: $FILE_NAME"
+done
+
+echo "All files created in directory: $OUTPUT_DIR"
+
+# Display the structure of the directory
+tree $OUTPUT_DIR
+
+aws s3 sync $OUTPUT_DIR s3://$BUCKET_NAME/files
