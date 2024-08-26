@@ -401,6 +401,105 @@ By completing this practice task, you will have demonstrated:
 This practice task simulates real-world scenarios and gives you hands-on experience with the AWS S3 CLI commands.
 
 
+## AWS S3 Bucket Creation Script
+
+This script is designed to automate the creation of an S3 bucket using the AWS CLI and a specified AWS region. It allows students to easily create an S3 bucket by passing the bucket name as an argument.
+
+### Prerequisites
+
+- You must have the AWS CLI installed and configured with appropriate credentials.
+- Ensure that you have the necessary IAM permissions to create S3 buckets in the specified region.
+
+### Usage Instructions
+
+#### 1. Script Overview
+
+The Bash script checks if a bucket name is provided as an argument and creates an S3 bucket in the specified AWS region using the following command:
+
+```bash
+aws s3api create-bucket   --bucket "$BUCKET_NAME"   --create-bucket-configuration LocationConstraint="$REGION"
+```
+
+#### 2. How to Use the Script
+
+1. **Save the script**: Save the script as `create_s3_bucket.sh` in your working directory.
+2. **Make the script executable**: Run the following command to make the script executable:
+   ```bash
+   chmod +x create_s3_bucket.sh
+   ```
+
+3. **Run the script**: Provide the bucket name as an argument when running the script.
+   ```bash
+   ./create_s3_bucket.sh <bucket-name>
+   ```
+   Replace `<bucket-name>` with the desired name of your S3 bucket.
+
+#### Example
+
+```bash
+./create_s3_bucket.sh my-example-bucket
+```
+
+#### 3. Script Breakdown
+
+```bash
+#!/bin/bash
+```
+
+- This line specifies that the script should be executed using the Bash shell.
+
+```bash
+if [ -z "$1" ]; then
+  echo "Error: No bucket name provided."
+  echo "Usage: ./create_s3_bucket.sh <bucket-name>"
+  exit 1
+fi
+```
+
+- This block checks if a bucket name is provided as an argument. If not, it prints an error message and exits the script.
+
+```bash
+BUCKET_NAME=$1
+```
+
+- This assigns the first argument passed to the script to the `BUCKET_NAME` variable.
+
+```bash
+REGION="ca-central-1"
+```
+
+- This specifies the AWS region where the bucket will be created. In this case, it's `ca-central-1` (Canada Central).
+
+```bash
+echo "Creating S3 bucket: $BUCKET_NAME in region: $REGION"
+aws s3api create-bucket   --bucket "$BUCKET_NAME"   --create-bucket-configuration LocationConstraint="$REGION"
+```
+
+- This block executes the `aws s3api create-bucket` command, which creates an S3 bucket in the specified region.
+
+```bash
+if [ $? -eq 0 ]; then
+  echo "Bucket $BUCKET_NAME created successfully in region $REGION."
+else
+  echo "Failed to create bucket $BUCKET_NAME in region $REGION."
+  exit 1
+fi
+```
+
+- This checks whether the bucket creation was successful by evaluating the exit status of the previous command. If successful, it prints a success message; otherwise, it prints a failure message.
+
+### Important Notes
+
+- **Bucket Naming Rules**: Ensure that the bucket name is globally unique and adheres to S3 bucket naming rules (e.g., no uppercase letters, 3-63 characters long).
+- **Region Constraints**: The script creates the bucket in the `ca-central-1` region by default. Modify the `REGION` variable if you need to create the bucket in a different region.
+
+### Conclusion
+
+This script simplifies the process of creating S3 buckets using the AWS CLI. It helps students understand how to automate cloud operations while providing a hands-on approach to managing AWS resources.
+
+Encourage students to experiment with different regions and explore additional options for configuring S3 buckets, such as enabling versioning or setting bucket policies.
+
+
 
 ### S3 Bucket
 
