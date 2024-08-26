@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+if [ -z "$1" ]; then
+ echo "Error: No bucket name provided"
+ exit 1
+fi
+
+BUCKET_NAME=$1
+
+aws s3api delete-bucket --bucket "$BUCKET_NAME"
+
+if [ $? -eq 0 ]; then
+ echo "Bucket $BUCKET_NAME deleted successfully."
+else
+ echo "Failed to delete bucket $BUCKET_NAME"
+ exit 1
+fi
+
