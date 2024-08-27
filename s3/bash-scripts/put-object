@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Exit immediately if any command returns a non-zero status.
+set -e
+
+if [ -z "$1" ]; then
+ echo "Error: No bucket name provided"
+ exit 1
+fi
+
+BUCKET_NAME=$1
+
+if [ -z "$2" ]; then
+ echo "Error: No Filename provided"
+ exit 1
+fi
+
+FILENAME=$2
+
+OBJECT_KEY=$(basename "$FILENAME")
+
+aws s3api put-object \
+ --bucket $BUCKET_NAME \
+ --body $FILENAME \
+ --key $OBJECT_KEY
